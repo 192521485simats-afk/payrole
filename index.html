@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Payroll Processing System</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    background: #f2f6fc;
+    color: #222;
+}
+
+header {
+    background: #1565c0;
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 30px;
+}
+
+header p {
+    margin: 8px 0 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 30px auto;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+h2 {
+    color: #1565c0;
+    margin-top: 0;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.full {
+    grid-column: span 2;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+button {
+    background: #1565c0;
+    color: white;
+    border: none;
+    padding: 13px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background: #0d47a1;
+}
+
+.result {
+    display: none;
+}
+
+.salary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.salary-table th,
+.salary-table td {
+    border: 1px solid #ddd;
+    padding: 13px;
+    text-align: left;
+}
+
+.salary-table th {
+    background: #1565c0;
+    color: white;
+}
+
+.summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.box {
+    background: #e3f2fd;
+    padding: 18px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.box h3 {
+    margin: 0 0 8px;
+    color: #1565c0;
+}
+
+.box p {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.net-pay {
+    background: #e8f5e9;
+    border-left: 5px solid #2e7d32;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+.net-pay h2 {
+    color: #2e7d32;
+}
+
+footer {
+    background: #1565c0;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 40px;
+}
+
+@media(max-width:700px) {
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .full {
+        grid-column: span 1;
+    }
+
+    .summary {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>💰 Payroll Processing System</h1>
+
+<p>Cloud-Based SaaS Application</p>
+
+</header>
+
+
+
+<div class="container">
+
+
+<!-- EMPLOYEE INFORMATION -->
+
+<div class="card">
+
+<h2>👨‍💼 Employee Information</h2>
+
+
+<div class="form-grid">
+
+
+<div>
+
+<label>Employee Name</label>
+
+<input
+type="text"
+id="employeeName"
+placeholder="Enter employee name">
+
+</div>
+
+
+<div>
+
+<label>Employee ID</label>
+
+<input
+type="text"
+id="employeeId"
+placeholder="Enter employee ID">
+
+</div>
+
+
+<div>
+
+<label>Department</label>
+
+<input
+type="text"
+id="department"
+placeholder="Enter department">
+
+</div>
+
+
+<div>
+
+<label>Designation</label>
+
+<input
+type="text"
+id="designation"
+placeholder="Enter designation">
+
+</div>
+
+
+<div>
+
+<label>Experience in Present Organization (Years)</label>
+
+<input
+type="number"
+id="presentExp"
+min="0"
+step="0.1"
+placeholder="Example: 2.5">
+
+</div>
+
+
+<div>
+
+<label>Overall Experience (Years)</label>
+
+<input
+type="number"
+id="overallExp"
+min="0"
+step="0.1"
+placeholder="Example: 5">
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<!-- SALARY INFORMATION -->
+
+<div class="card">
+
+<h2>💵 Salary Information</h2>
+
+
+<div class="form-grid">
+
+
+<div>
+
+<label>Basic Pay (₹)</label>
+
+<input
+type="number"
+id="basicPay"
+min="0"
+placeholder="Enter basic pay">
+
+</div>
+
+
+<div>
+
+<label>HRA (%)</label>
+
+<input
+type="number"
+id="hraRate"
+value="20"
+min="0"
+placeholder="Example: 20">
+
+</div>
+
+
+<div>
+
+<label>DA (%)</label>
+
+<input
+type="number"
+id="daRate"
+value="10"
+min="0"
+placeholder="Example: 10">
+
+</div>
+
+
+<div>
+
+<label>TA (₹)</label>
+
+<input
+type="number"
+id="ta"
+value="2000"
+min="0"
+placeholder="Enter TA">
+
+</div>
+
+
+<div>
+
+<label>PF Deduction (%)</label>
+
+<input
+type="number"
+id="pfRate"
+value="12"
+min="0"
+placeholder="Example: 12">
+
+</div>
+
+
+<div>
+
+<label>Other Deductions (₹)</label>
+
+<input
+type="number"
+id="otherDeduction"
+value="0"
+min="0"
+placeholder="Enter deductions">
+
+</div>
+
+
+</div>
+
+
+<br>
+
+
+<button onclick="processPayroll()">
+
+⚙️ Process Payroll
+
+</button>
+
+
+</div>
+
+
+
+<!-- PAYROLL RESULT -->
+
+<div class="card result" id="result">
+
+
+<h2>📄 Employee Salary Statement</h2>
+
+
+<p>
+<b>Employee Name:</b>
+<span id="resultName"></span>
+</p>
+
+
+<p>
+<b>Employee ID:</b>
+<span id="resultId"></span>
+</p>
+
+
+<p>
+<b>Department:</b>
+<span id="resultDepartment"></span>
+</p>
+
+
+<p>
+<b>Designation:</b>
+<span id="resultDesignation"></span>
+</p>
+
+
+<p>
+<b>Experience in Present Organization:</b>
+<span id="resultPresentExp"></span> years
+</p>
+
+
+<p>
+<b>Overall Experience:</b>
+<span id="resultOverallExp"></span> years
+</p>
+
+
+
+<table class="salary-table">
+
+
+<tr>
+
+<th>Salary Component</th>
+
+<th>Amount (₹)</th>
+
+</tr>
+
+
+<tr>
+
+<td>Basic Pay</td>
+
+<td id="resultBasic"></td>
+
+</tr>
+
+
+<tr>
+
+<td>HRA</td>
+
+<td id="resultHRA"></td>
+
+</tr>
+
+
+<tr>
+
+<td>DA</td>
+
+<td id="resultDA"></td>
+
+</tr>
+
+
+<tr>
+
+<td>TA</td>
+
+<td id="resultTA"></td>
+
+</tr>
+
+
+<tr>
+
+<td><b>Gross Pay</b></td>
+
+<td id="resultGross"></td>
+
+</tr>
+
+
+<tr>
+
+<td>PF Deduction</td>
+
+<td id="resultPF"></td>
+
+</tr>
+
+
+<tr>
+
+<td>Other Deductions</td>
+
+<td id="resultOther"></td>
+
+</tr>
+
+
+<tr>
+
+<td><b>Total Deduction</b></td>
+
+<td id="resultDeduction"></td>
+
+</tr>
+
+
+</table>
+
+
+
+<div class="summary">
+
+
+<div class="box">
+
+<h3>Gross Pay</h3>
+
+<p>₹<span id="grossBox"></span></p>
+
+</div>
+
+
+<div class="box">
+
+<h3>Total Deduction</h3>
+
+<p>₹<span id="deductionBox"></span></p>
+
+</div>
+
+
+<div class="box">
+
+<h3>Salary Grade</h3>
+
+<p id="salaryGrade"></p>
+
+</div>
+
+
+</div>
+
+
+
+<div class="net-pay">
+
+<h2>💰 Net Pay: ₹<span id="netPay"></span></h2>
+
+<p id="salaryMessage"></p>
+
+</div>
+
+
+<br>
+
+
+<button onclick="window.print()">
+
+🖨 Print Salary Statement
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+<footer>
+
+Payroll Processing System | SaaS Cloud Application | GitHub Pages
+
+</footer>
+
+
+
+<script>
+
+
+function processPayroll() {
+
+
+/* GET EMPLOYEE DETAILS */
+
+
+let name =
+document.getElementById("employeeName").value;
+
+let id =
+document.getElementById("employeeId").value;
+
+let department =
+document.getElementById("department").value;
+
+let designation =
+document.getElementById("designation").value;
+
+let presentExp =
+Number(document.getElementById("presentExp").value);
+
+let overallExp =
+Number(document.getElementById("overallExp").value);
+
+
+/* GET SALARY DETAILS */
+
+
+let basic =
+Number(document.getElementById("basicPay").value);
+
+let hraRate =
+Number(document.getElementById("hraRate").value);
+
+let daRate =
+Number(document.getElementById("daRate").value);
+
+let ta =
+Number(document.getElementById("ta").value);
+
+let pfRate =
+Number(document.getElementById("pfRate").value);
+
+let otherDeduction =
+Number(document.getElementById("otherDeduction").value);
+
+
+/* VALIDATION */
+
+
+if(name === "" || id === "") {
+
+    alert("Please enter Employee Name and Employee ID.");
+
+    return;
+}
+
+
+if(basic <= 0) {
+
+    alert("Please enter a valid Basic Pay.");
+
+    return;
+}
+
+
+if(presentExp < 0 || overallExp < 0) {
+
+    alert("Experience cannot be negative.");
+
+    return;
+}
+
+
+/* CALCULATE HRA */
+
+
+let hra =
+basic * hraRate / 100;
+
+
+/* CALCULATE DA */
+
+
+let da =
+basic * daRate / 100;
+
+
+/* CALCULATE GROSS PAY */
+
+
+let gross =
+basic + hra + da + ta;
+
+
+/* CALCULATE PF */
+
+
+let pf =
+basic * pfRate / 100;
+
+
+/* TOTAL DEDUCTION */
+
+
+let totalDeduction =
+pf + otherDeduction;
+
+
+/* NET PAY */
+
+
+let netPay =
+gross - totalDeduction;
+
+
+/* SALARY GRADE */
+
+
+let grade;
+
+
+if(netPay >= 100000) {
+
+    grade = "A+";
+
+}
+
+else if(netPay >= 75000) {
+
+    grade = "A";
+
+}
+
+else if(netPay >= 50000) {
+
+    grade = "B";
+
+}
+
+else if(netPay >= 30000) {
+
+    grade = "C";
+
+}
+
+else {
+
+    grade = "D";
+
+}
+
+
+/* SALARY MESSAGE */
+
+
+let message;
+
+
+if(netPay >= 75000) {
+
+    message =
+    "Excellent salary package and compensation.";
+
+}
+
+else if(netPay >= 50000) {
+
+    message =
+    "Good salary package.";
+
+}
+
+else if(netPay >= 30000) {
+
+    message =
+    "Standard salary package.";
+
+}
+
+else {
+
+    message =
+    "Salary package can be improved.";
+
+}
+
+
+/* DISPLAY EMPLOYEE DETAILS */
+
+
+document.getElementById("resultName")
+.innerText = name;
+
+
+document.getElementById("resultId")
+.innerText = id;
+
+
+document.getElementById("resultDepartment")
+.innerText =
+department || "Not specified";
+
+
+document.getElementById("resultDesignation")
+.innerText =
+designation || "Not specified";
+
+
+document.getElementById("resultPresentExp")
+.innerText =
+presentExp;
+
+
+document.getElementById("resultOverallExp")
+.innerText =
+overallExp;
+
+
+/* DISPLAY SALARY */
+
+
+document.getElementById("resultBasic")
+.innerText =
+basic.toFixed(2);
+
+
+document.getElementById("resultHRA")
+.innerText =
+hra.toFixed(2);
+
+
+document.getElementById("resultDA")
+.innerText =
+da.toFixed(2);
+
+
+document.getElementById("resultTA")
+.innerText =
+ta.toFixed(2);
+
+
+document.getElementById("resultGross")
+.innerText =
+gross.toFixed(2);
+
+
+document.getElementById("resultPF")
+.innerText =
+pf.toFixed(2);
+
+
+document.getElementById("resultOther")
+.innerText =
+otherDeduction.toFixed(2);
+
+
+document.getElementById("resultDeduction")
+.innerText =
+totalDeduction.toFixed(2);
+
+
+/* SUMMARY */
+
+
+document.getElementById("grossBox")
+.innerText =
+gross.toFixed(2);
+
+
+document.getElementById("deductionBox")
+.innerText =
+totalDeduction.toFixed(2);
+
+
+document.getElementById("salaryGrade")
+.innerText =
+grade;
+
+
+/* NET PAY */
+
+
+document.getElementById("netPay")
+.innerText =
+netPay.toFixed(2);
+
+
+document.getElementById("salaryMessage")
+.innerText =
+message;
+
+
+/* SHOW RESULT */
+
+
+document.getElementById("result")
+.style.display = "block";
+
+
+/* SCROLL TO RESULT */
+
+
+window.scrollTo({
+
+    top:
+    document.getElementById("result").offsetTop,
+
+    behavior: "smooth"
+
+});
+
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
